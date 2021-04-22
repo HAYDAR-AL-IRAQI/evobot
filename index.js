@@ -20,31 +20,16 @@ client.queue = new Map();
 const cooldowns = new Collection();
 const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-i18n.configure({
-  locales: ['ar'],
-  directory: path.join(__dirname, "/locales"),
-  defaultLocale: 'ar',
-  objectNotation: true,
-  register: global,
+var i18nconf = {
+   locales        : ["en", "es"],
+   cookie         : "locale",
+   defaultLocale : "en",
+   directory      : path.join(__dirname, "locales"),
+   indent : "  "
+};
 
-  logWarnFn: function (msg) {
-    console.log("warn", msg);
-  },
-
-  logErrorFn: function (msg) {
-    console.log("error", msg);
-  },
-
-  missingKeyFn: function (locale, value) {
-    return value;
-  },
-
-  mustacheConfig: {
-    tags: ["{{", "}}"],
-    disable: false
-  }
-});
-
+i18n.configure(i18nconf);
+app.use(i18n.init);
 /**
  * Client Events
  */
